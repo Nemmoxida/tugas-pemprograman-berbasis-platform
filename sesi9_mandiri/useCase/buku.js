@@ -3,11 +3,8 @@ export default function produk(express, db) {
 
   // mengambil semua data
   router.get("/", async (req, res) => {
-    const hargaMin = req.query.hargaMin ? req.query.hargaMin : 0;
-    const hargaMax = req.query.hargaMax ? req.query.hargaMax : undefined;
-
     try {
-      const getData = await db.getAll(hargaMin, hargaMax);
+      const getData = await db.getAll();
       if (getData == false) {
         return res.send({ message: "data yang akan di ambil tidak ada" });
       }
@@ -22,10 +19,9 @@ export default function produk(express, db) {
   // mengambil data spesifik berdasarkan ID
   router.get("/:id", async (req, res) => {
     const id = req.params.id;
-    const hargaMin = req.query.hargaMin ? req.query.hargaMin : 0;
-    const hargaMax = req.query.hargaMax ? req.query.hargaMax : undefined;
+
     try {
-      const getDataById = await db.getFilter(id, hargaMin, hargaMax);
+      const getDataById = await db.getFilter(id);
 
       if (getDataById == false) {
         return res.send({ message: "Id data yang akan di ambil tidak ada" });
@@ -44,13 +40,11 @@ export default function produk(express, db) {
   router.post("/", async (req, res) => {
     const payload = req.body;
 
+    if (isNaN(new Date(payload.tahun))) {
+      return res.status(400).send({ message: "Gagal membaca format tanggal" });
+    }
+
     try {
-      payload.harga = parseInt(payload.harga, 10);
-      if (isNaN(payload.harga)) {
-        return res
-          .status(400)
-          .send({ message: "Harga harus bertipe interger" });
-      }
       const postData = await db.postData(payload);
       res.send({ message: "Data berhasil disimpan" });
     } catch (error) {
@@ -77,6 +71,10 @@ export default function produk(express, db) {
   router.put("/:id", async (req, res) => {
     const id = req.params.id;
     const payload = req.body;
+
+    if (isNaN(new Date(payload.tahun))) {
+      return res.status(400).send({ message: "Gagal membaca format tanggal" });
+    }
 
     try {
       const editData = await db.putData(id, payload);

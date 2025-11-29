@@ -8,6 +8,7 @@
   },
   "type": "module",
   "scripts": {
-    "dev": "nodemon ./sesi9/app.js"
+    "produk": "nodemon ./sesi9/app.js",
+    "buku": "nodemon ./sesi9_mandiri/app.js"
   }
 }
