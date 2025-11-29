@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "express": "^5.1.0",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3",
+    "prompt-sync": "^4.2.0"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon ./sesi9/app.js"
+  }
+}
