@@ -10,6 +10,6 @@
   "scripts": {
     "produk": "nodemon ./sesi9/app.js",
     "buku": "nodemon ./sesi9_mandiri/app.js",
-    "mahasiswa": "nodemon ./sesi10_praktikum/app.js"
+    "mahasiswa": "nodemon ./sesi10/app.js"
   }
 }

@@ -3,8 +3,14 @@ export default function produk(express, db) {
 
   // mengambil semua data
   router.get("/", async (req, res) => {
+    let pageQuery = req.query.page;
+    if (pageQuery) {
+      pageQuery--;
+      pageQuery *= 5;
+    }
+
     try {
-      const getData = await db.getAll();
+      const getData = await db.getAll(pageQuery);
       if (getData == false) {
         return res.send({ message: "data yang akan di ambil tidak ada" });
       }

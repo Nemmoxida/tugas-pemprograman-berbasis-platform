@@ -3,7 +3,14 @@ class userRepository {
     this.db = db;
   }
 
-  async getAll() {
+  async getAll(page) {
+    if (page !== undefined) {
+      const data = await this.db.query(
+        "SELECT * FROM dosen ORDER BY nidn LIMIT 5 OFFSET $1",
+        [page]
+      );
+      return data.rows;
+    }
     const data = await this.db.query("SELECT * FROM dosen");
     return data.rows;
   }
@@ -17,14 +24,8 @@ class userRepository {
 
   async postData(payload) {
     const data = await this.db.query(
-      "INSERT INTO dosen(nidn, name, gender, prodi, alamat) VALUES($1,$2,$3,$4,$5)",
-      [
-        payload.nidn,
-        payload.name,
-        payload.gender,
-        payload.prodi,
-        payload.alamat,
-      ]
+      "INSERT INTO dosen(nidn, name, gender, prodi, email) VALUES($1,$2,$3,$4,$5)",
+      [payload.nidn, payload.name, payload.gender, payload.prodi, payload.email]
     );
 
     return data;
@@ -37,8 +38,8 @@ class userRepository {
   }
   async putData(nidn, payload) {
     const data = await this.db.query(
-      "UPDATE dosen SET name = $1, gender = $2, prodi = $3, alamat = $4 WHERE nidn = $5",
-      [payload.name, payload.gender, payload.prodi, payload.alamat, nidn]
+      "UPDATE dosen SET name = $1, gender = $2, prodi = $3, email = $4 WHERE nidn = $5",
+      [payload.name, payload.gender, payload.prodi, payload.email, nidn]
     );
 
     return data;
