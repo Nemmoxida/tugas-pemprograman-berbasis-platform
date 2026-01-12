@@ -1,8 +1,10 @@
 {
   "dependencies": {
+    "bcrypt": "^6.0.0",
     "chalk": "^5.6.2",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.3",
     "nodemon": "^3.1.10",
     "pg": "^8.16.3",
     "prompt-sync": "^4.2.0"
